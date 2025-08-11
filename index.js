@@ -54,6 +54,22 @@ async function fetchEditions(surahNum, editions) {
   return data.data; // array
 }
 
+/* Ardışık tekrar eden cümleleri temizleyen fonksiyon */
+function removeConsecutiveDuplicates(text) {
+  if (!text) return text;
+  const sentences = text.split(/([.?!])\s*/); // Nokta, soru işareti, ünlem sonrası da böl
+  const filtered = [];
+  
+  for (let i = 0; i < sentences.length; i += 2) {
+    const sentence = (sentences[i] || '') + (sentences[i+1] || '');
+    if (i === 0 || sentence !== filtered[filtered.length - 1]) {
+      filtered.push(sentence);
+    }
+  }
+  
+  return filtered.join(' ');
+}
+
 /* Ses çalma altyapısı */
 let audioQueue = [];
 let currentAudio = null;
@@ -107,7 +123,11 @@ async function loadSurah(surahNum, surahDisplayName, clickedEl) {
     const turkishEdition = editions.find(e => e.edition.identifier && (e.edition.identifier.includes("tr") || e.edition.identifier.includes("diyanet")));
 
     const arabicText = arabicEdition ? arabicEdition.ayahs.map(a => a.text).join(' ') : "Arapça metin yüklenemedi.";
-    const turkishText = turkishEdition ? turkishEdition.ayahs.map(a => a.text).join(' ') : "Türkçe meal yüklenemedi.";
+
+    let turkishTextRaw = turkishEdition ? turkishEdition.ayahs.map(a => a.text).join(' ') : "Türkçe meal yüklenemedi.";
+
+    // Ardışık tekrar eden cümleleri temizle
+    const turkishText = removeConsecutiveDuplicates(turkishTextRaw);
 
     // 2) Türkçe okunuş JSON'u kullan
     let turkceOkunus = "";
