@@ -1,0 +1,144 @@
+[
+{
+  "chapter": 1,
+  "name": "Fâtiha",
+  "ayahs": [
+    {"number": 1, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 2, "text": "Elhamdulillâhi Rabbi’l-âlemîn."},
+    {"number": 3, "text": "Er-Rahmâni’r-Rahîm."},
+    {"number": 4, "text": "Mâliki yevmi’d-dîn."},
+    {"number": 5, "text": "İyyâke na’budu ve iyyâke neste’în."},
+    {"number": 6, "text": "İhdine’s-sırâta’l-mustakîm."},
+    {"number": 7, "text": "Sırâta’l-lezîne en’amte aleyhim. Ğayri’l-meğdûbi aleyhim ve le’d-dâllîn."}
+  ]
+}
+,
+  {
+  "chapter": 103,
+  "name": "Asr",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Vel'asr."},
+    {"number": 2, "text": "İnnel'insâne lefî husr."},
+    {"number": 3, "text": "İllellezîne âmenû ve amilûssâlihâti vetevâ savbilhakkı vetevâ savbissabr."}
+  ]
+}
+,
+ {
+  "chapter": 108,
+  "name": "Kevser",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "İnnâ a’taynâ ke’l-kevser."},
+    {"number": 2, "text": "Fesalli li-Rabbike ve’nhar."},
+    {"number": 3, "text": "İnne şâni’eke huve’l-ebter."}
+  ]
+}
+,
+ {
+  "chapter": 109,
+  "name": "Kâfirûn",
+  "ayahs": [
+    {"number": 0, "text": "Bismillahirrahmânirrahîm."},
+    {"number": 1, "text": "Kul yâ eyyühel kâfirûn"},
+    {"number": 2, "text": "Lâ a'büdü mâ ta'büdûn"},
+    {"number": 3, "text": "Ve lâ entüm âbidûne mâ a'büd"},
+    {"number": 4, "text": "Ve lâ ene âbidün mâ abedtüm"},
+    {"number": 5, "text": "Ve lâ entüm âbidûne mâ a'büd"},
+    {"number": 6, "text": "Leküm dînüküm veliye dîn"}
+  ]
+}
+,
+  {
+  "chapter": 112,
+  "name": "İhlâs",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Gul huvallâhu ehad."},
+    {"number": 2, "text": "Allâhu’s-samed."},
+    {"number": 3, "text": "Lem yelid ve lem yûled."},
+    {"number": 4, "text": "Ve lem yekun lehû kufuven ahad."}
+  ]
+}
+,
+  {
+  "chapter": 113,
+  "name": "Felak",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Gul e’ûzu bi-Rabbi’l-felak."},
+    {"number": 2, "text": "Min şerri mâ halak."},
+    {"number": 3, "text": "Ve min şerri ğasigın izâ vegab."},
+    {"number": 4, "text": "Ve min şerri’n-neffâsâti fi’l-ugad."},
+    {"number": 5, "text": "Ve min şerri hâsidin izâ hased."}
+  ]
+}
+,
+  {
+  "chapter": 114,
+  "name": "Nâs",
+  "ayahs": [
+    {"number": 0, "text": "Bismillahirrahmânirrahîm."},
+    {"number": 1, "text": "Kul e'ûzü birabbinnâs"},
+    {"number": 2, "text": "Melikinnâs"},
+    {"number": 3, "text": "İlâhinnâs"},
+    {"number": 4, "text": "Min şerrilvesvâsilhannâs"},
+    {"number": 5, "text": "Ellezî yüvesvisü fî sudûrinnâsi"},
+    {"number": 6, "text": "Minelcinneti vennâs"}
+  ]
+}
+,
+  {
+  "chapter": 111,
+  "name": "Tebbet",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Tebbet yedâ ebî lehebin ve tebb."},
+    {"number": 2, "text": "Mâ ağnâ ‘anhu mâluhû ve mâ keseb."},
+    {"number": 3, "text": "Seyaslâ nâran zâte leheb."},
+    {"number": 4, "text": "Vemraetuhû hammâlete’l-hatab."},
+    {"number": 5, "text": "Fî cîdihâ hablun min mesed."}
+  ]
+}
+,
+  {
+  "chapter": 105,
+  "name": "Fil",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Elemtera keyfe fe’ale Rabbuke bi-ashâbi’l-fîl."},
+    {"number": 2, "text": "Elem yec’al keydehum fî tadlîl."},
+    {"number": 3, "text": "Ve ersele ’aleyhim tayran ebâbîl."},
+    {"number": 4, "text": "Termîhim bi-hicâratin min siccîl."},
+    {"number": 5, "text": "Fece’alehum ke’asfin me’kûl."}
+  ]
+},
+{
+  "chapter": 107,
+  "name": "Ma'un",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Eraeytellezî yukezzibu bi’d-dîn."},
+    {"number": 2, "text": "Fezâlike’l-lezî yedu’ul-yetîm."},
+    {"number": 3, "text": "Ve lâ yehuddu alâ ta’âmi’l-miskîn."},
+    {"number": 4, "text": "Feveylun lil-musallîn."},
+    {"number": 5, "text": "Ellezînehum an salâtihim sâhûn."},
+    {"number": 6, "text": "Ellezînehum yurâûn."},
+    {"number": 7, "text": "Ve yemne’ûne’l-mâ’ûn."}
+  ]
+},
+{
+  "chapter": 106,
+  "name": "Kureyş",
+  "ayahs": [
+    {"number": 0, "text": "Bismillâhi’r-Rahmâni’r-Rahîm."},
+    {"number": 1, "text": "Li îlâfi kurayş."},
+    {"number": 2, "text": "Îlâfihim rihlete’ş-şitâi ve’s-sayf."},
+    {"number": 3, "text": "Felya’budû Rabbe hâze’l-beyt."},
+    {"number": 4, "text": "Ellezî et’amehum min cû’in ve âmenehum min havf."}
+  ]
+}
+
+
+
+]

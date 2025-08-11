@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Namaz Sûreleri - Tam (Arapça / Okunuş / Meal / Ses)</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <button id="toggleMenu" class="menu-btn">☰ Sûreler</button>
+
+  <aside id="sidebar" class="sidebar open">
+    <div class="menu-header">
+      <h2>Namaz Sûreleri</h2>
+      <p class="subtitle">Arapça • Okunuş • Türkçe Meal • Sesli</p>
+    </div>
+    <div id="surahList" class="surah-list"></div>
+  </aside>
+
+  <main class="content">
+    <h1 id="surahTitle">Bir sûre seçiniz</h1>
+
+    <section id="displayArea" class="hidden">
+      <div class="card arabic" id="arabicText" lang="ar" dir="rtl"></div>
+
+      <div class="card transliteration">
+        <h3>Okunuş (Latin)</h3>
+        <div id="translitText"></div>
+      </div>
+
+      <div class="card translation">
+        <h3>Türkçe Meal (Diyanet)</h3>
+        <div id="turkishText"></div>
+      </div>
+
+      <div class="controls">
+        <button id="playAudio" class="audio-btn">🔊 Sûreyi Sesli Oku</button>
+        <button id="stopAudio" class="audio-btn secondary">■ Dur</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>"Sizin en hayırlınız Kur’an’ı öğrenen ve öğreteninizdir." <span>(Buhârî)</span></p>
+      <p class="credit">Hazırlayan: <span class="shine">Neval YURTSEVER</span></p>
+    </footer>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>

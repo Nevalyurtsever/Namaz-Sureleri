@@ -1,0 +1,124 @@
+/* Temel görünüm — senin önceki stil diline benzeyecek şekilde estetik */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(180deg,#0b1220 0%,#10202b 100%);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Menü butonu */
+.menu-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  padding: 10px 14px;
+  font-size: 16px;
+  background: linear-gradient(45deg,#ffd54f,#ffb300);
+  border: none;
+  border-radius: 8px;
+  color: #3e2f00;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  padding: 26px 18px;
+  background: linear-gradient(180deg,#1f2a36,#12202a);
+  box-shadow: 2px 0 20px rgba(0,0,0,0.6);
+  overflow-y: auto;
+  z-index: 50;
+  transform: translateX(0);
+  transition: transform .35s ease;
+}
+.sidebar.closed { transform: translateX(-320px); }
+.menu-header h2 {
+  margin: 0 0 6px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #ffd873;
+}
+.menu-header .subtitle {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: #cbd5da;
+}
+
+/* Surah list items */
+.surah-list { display:flex; flex-direction:column; gap:10px; padding-bottom:20px; }
+.surah-item {
+  padding:10px 12px;
+  border-radius:10px;
+  background: linear-gradient(90deg,#0f2231,#0d2b38);
+  color: #e9f1f5;
+  cursor:pointer;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.surah-item:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,0.6); }
+.surah-item.active {
+  background: linear-gradient(90deg,#ffd54f,#ffb300);
+  color: #3e2f00;
+  font-weight:700;
+}
+
+/* Main content area */
+.content {
+  margin-left: 320px;
+  padding: 42px;
+  min-height: 100vh;
+  color: #f7f7f7;
+}
+#surahTitle { font-family: 'Playfair Display', serif; font-size: 32px; color: #ffd873; margin: 0 0 18px 0; }
+
+/* Cards */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.arabic { font-size: 1.8rem; line-height: 2.6rem; text-align: right; font-weight:600; font-family: 'Scheherazade', 'Noto Naskh Arabic', serif; direction: rtl; }
+.transliteration { font-size: 1.05rem; color: #fffbe6; }
+.translation { font-size: 1rem; color: #e6f0e6; font-style: italic; }
+
+/* Controls */
+.controls { display:flex; gap:12px; margin-top: 6px; }
+.audio-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight:700;
+  background: linear-gradient(45deg,#ffd54f,#ffb300);
+  color: #3e2f00;
+}
+.audio-btn.secondary {
+  background: linear-gradient(45deg,#cfcfcf,#999999);
+  color: #222;
+}
+
+/* Footer */
+.footer { margin-top: 26px; color: #cfd8dc; font-size: 14px; }
+.footer .credit { margin-top: 8px; font-weight:700; color:#ffd873; }
+
+/* Hidden helper */
+.hidden { display: none; }
+
+/* Responsive */
+@media (max-width: 880px) {
+  .content { margin-left: 20px; padding: 18px; }
+  .sidebar { width: 100%; height: auto; position: relative; transform: translateY(0); }
+  .menu-btn { left: 50%; transform: translateX(-50%); top: 8px; }
+}
