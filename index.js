@@ -50,14 +50,15 @@ async function fetchEditions(surahNum, editions) {
   return data.data;
 }
 
+// Tekrar eden cümleleri temizleme fonksiyonu
 function removeConsecutiveDuplicates(text) {
   if (!text) return text;
   const sentences = text.split(/([.?!])\s*/);
   const filtered = [];
   for (let i = 0; i < sentences.length; i += 2) {
     const sentence = (sentences[i] || '') + (sentences[i+1] || '');
-    if (i === 0 || sentence !== filtered[filtered.length - 1]) {
-      filtered.push(sentence);
+    if (i === 0 || sentence.trim() !== filtered[filtered.length - 1]?.trim()) {
+      filtered.push(sentence.trim());
     }
   }
   return filtered.join(' ');
