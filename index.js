@@ -13,8 +13,6 @@ toggleMenu.addEventListener('click', () => {
   sidebar.classList.toggle('closed');
 });
 
-/* Namaz sûreleri listesi (eklenen Tebbet ve Fil ile) */
-/* Namaz sûreleri listesi (Kureyş ve Ma’un eklendi, Kur’an sırasına göre sıralandı) */
 const NAMAZ_SURAHS = [
   {name: "Fâtiha", num: 1},
   {name: "Asr", num: 103},
@@ -29,7 +27,6 @@ const NAMAZ_SURAHS = [
   {name: "Nâs", num: 114}
 ];
 
-/* Türkçe okunuş JSON yükleme */
 let turkceOkunusJson = null;
 
 fetch('turkce_okunus.json')
@@ -45,41 +42,46 @@ fetch('turkce_okunus.json')
     turkceOkunusJson = null;
   });
 
-/* AlQuran Cloud edition çağrısı */
 async function fetchEditions(surahNum, editions) {
   const url = `https://api.alquran.cloud/v1/surah/${surahNum}/editions/${editions}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("API isteği başarısız: " + res.status);
   const data = await res.json();
-  return data.data; // array
+  return data.data;
 }
 
-/* Ardışık tekrar eden cümleleri temizleyen fonksiyon */
 function removeConsecutiveDuplicates(text) {
   if (!text) return text;
-  const sentences = text.split(/([.?!])\s*/); // Nokta, soru işareti, ünlem sonrası da böl
+  const sentences = text.split(/([.?!])\s*/);
   const filtered = [];
-  
   for (let i = 0; i < sentences.length; i += 2) {
     const sentence = (sentences[i] || '') + (sentences[i+1] || '');
     if (i === 0 || sentence !== filtered[filtered.length - 1]) {
       filtered.push(sentence);
     }
   }
-  
   return filtered.join(' ');
 }
 
-/* Ses çalma altyapısı */
 let audioQueue = [];
 let currentAudio = null;
 let playing = false;
+let paused = false;
 
-function playQueue(urls) {
-  stopAudio();
-  audioQueue = Array.from(urls);
-  playing = true;
-  playNext();
+function playQueue(urls, fromStart = true) {
+  if (fromStart) {
+    stopAudio(true);
+    audioQueue = Array.from(urls);
+    playing = true;
+    paused = false;
+    playNext();
+  } else {
+    if (currentAudio && paused) {
+      currentAudio.play();
+      paused = false;
+      stopBtn.textContent = "⏸ Dur";
+    }
+  }
 }
 
 function playNext() {
@@ -87,6 +89,7 @@ function playNext() {
   if (audioQueue.length === 0) {
     playing = false;
     currentAudio = null;
+    stopBtn.textContent = "⏸ Dur";
     return;
   }
   const url = audioQueue.shift();
@@ -94,20 +97,25 @@ function playNext() {
   currentAudio.onended = () => { currentAudio = null; playNext(); };
   currentAudio.onerror = () => { console.warn("Ses yüklenirken hata", url); playNext(); };
   currentAudio.play().catch(err => {
-    console.warn("Oynatma başlatılamadı (tarayıcı kısıtlaması?):", err);
+    console.warn("Oynatma başlatılamadı:", err);
   });
 }
 
-function stopAudio() {
-  playing = false;
-  audioQueue = [];
+function stopAudio(fullStop = false) {
   if (currentAudio) {
-    currentAudio.pause();
-    currentAudio = null;
+    if (fullStop) {
+      currentAudio.pause();
+      currentAudio = null;
+      paused = false;
+      stopBtn.textContent = "⏸ Dur";
+    } else {
+      currentAudio.pause();
+      paused = true;
+      stopBtn.textContent = "▶ Devam Et";
+    }
   }
 }
 
-/* Surah seçimi işlendiğinde API çağrıları */
 async function loadSurah(surahNum, surahDisplayName, clickedEl) {
   try {
     surahTitleEl.textContent = `Yükleniyor...`;
@@ -116,20 +124,19 @@ async function loadSurah(surahNum, surahDisplayName, clickedEl) {
     translitTextEl.textContent = "";
     displayArea.classList.add('hidden');
 
-    // 1) Arapça + Türkçe meal (Diyanet)
     const editions = await fetchEditions(surahNum, "quran-uthmani,tr.diyanet");
-
-    const arabicEdition = editions.find(e => e.edition.identifier && e.edition.identifier.includes("quran-uthmani"));
-    const turkishEdition = editions.find(e => e.edition.identifier && (e.edition.identifier.includes("tr") || e.edition.identifier.includes("diyanet")));
+    const arabicEdition = editions.find(e => e.edition.identifier.includes("quran-uthmani"));
+    const turkishEdition = editions.find(e => e.edition.identifier.includes("tr"));
 
     const arabicText = arabicEdition ? arabicEdition.ayahs.map(a => a.text).join(' ') : "Arapça metin yüklenemedi.";
-
     let turkishTextRaw = turkishEdition ? turkishEdition.ayahs.map(a => a.text).join(' ') : "Türkçe meal yüklenemedi.";
 
-    // Ardışık tekrar eden cümleleri temizle
-    const turkishText = removeConsecutiveDuplicates(turkishTextRaw);
+    // Sadece Felâk (113) ve Nâs (114) için tekrar temizle
+    let turkishText = turkishTextRaw;
+    if (surahNum === 113 || surahNum === 114) {
+      turkishText = removeConsecutiveDuplicates(turkishTextRaw);
+    }
 
-    // 2) Türkçe okunuş JSON'u kullan
     let turkceOkunus = "";
     if (turkceOkunusJson) {
       const found = turkceOkunusJson.find(s => s.chapter === surahNum);
@@ -138,54 +145,50 @@ async function loadSurah(surahNum, surahDisplayName, clickedEl) {
       }
     }
 
-    // 3) Ses: ar.alafasy endpoint'inden ayah-by-ayah audio URL'leri
     let audioUrls = [];
     try {
       const audioRes = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}/ar.alafasy`);
       if (audioRes.ok) {
         const json = await audioRes.json();
-        if (json && json.data && json.data.ayahs) {
+        if (json?.data?.ayahs) {
           audioUrls = json.data.ayahs.map(a => a.audio).filter(Boolean);
-        }
-        if (audioUrls.length === 0 && json && json.data && json.data.audio) {
-          audioUrls = [json.data.audio];
         }
       }
     } catch (e) {
       console.warn("Ses için ek istek başarısız:", e);
     }
 
-    // UI'ya yaz
     surahTitleEl.textContent = surahDisplayName;
     arabicTextEl.textContent = arabicText;
     turkishTextEl.textContent = turkishText;
-    translitTextEl.textContent = turkceOkunus || "Okunuş (transliterasyon) kaynağı bulunamadı veya yüklenemedi.";
-
+    translitTextEl.textContent = turkceOkunus || "Okunuş (transliterasyon) bulunamadı.";
     displayArea.classList.remove('hidden');
 
-    playBtn.onclick = () => {
-      if (audioUrls.length === 0) {
-        alert("Ses kaynağı bulunamadı veya yüklenemedi.");
-        return;
+    playBtn.textContent = "🔊 Sûreyi Sesli Oku";
+    playBtn.onclick = () => playQueue(audioUrls, true);
+
+    stopBtn.textContent = "⏸ Dur";
+    stopBtn.onclick = () => {
+      if (paused) {
+        playQueue(audioUrls, false);
+      } else {
+        stopAudio(false);
       }
-      playQueue(audioUrls);
     };
-    stopBtn.onclick = stopAudio;
 
     document.querySelectorAll('.surah-item').forEach(el => el.classList.remove('active'));
     if (clickedEl) clickedEl.classList.add('active');
 
   } catch (err) {
-    console.error("Süre yükleme hatası:", err);
+    console.error("Sûre yükleme hatası:", err);
     surahTitleEl.textContent = "Yükleme hatası";
-    arabicTextEl.textContent = "Bir hata oluştu. Konsolu kontrol edin.";
+    arabicTextEl.textContent = "Bir hata oluştu.";
     turkishTextEl.textContent = "";
     translitTextEl.textContent = "";
     displayArea.classList.remove('hidden');
   }
 }
 
-/* Listeyi doldur */
 function populateList() {
   NAMAZ_SURAHS.forEach(s => {
     const item = document.createElement('div');
@@ -196,5 +199,4 @@ function populateList() {
   });
 }
 
-// Başlat
 populateList();
